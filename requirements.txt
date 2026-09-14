@@ -1,1 +1,26 @@
-lifelines==0.27.7
+# Core scientific Python stack
+numpy>=1.24
+pandas>=2.0
+scipy>=1.11
+matplotlib>=3.7
+seaborn>=0.12
+
+# ML
+scikit-learn>=1.3
+xgboost>=2.0
+
+# Image processing
+scikit-image>=0.21
+
+# Interpretation
+shap>=0.43
+# Optional - only for the Kaplan-Meier cell in the heart-failure notebook
+# lifelines>=0.27.7
+
+# Deep learning (optional - only needed for the LHC CNN notebook)
+# tensorflow>=2.13
+
+# Notebook tooling
+jupyter>=1.0
+ipykernel>=6.0
+nbconvert>=7.0
