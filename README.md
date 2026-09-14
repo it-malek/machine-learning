@@ -1,16 +1,17 @@
 # Machine Learning Portfolio
 
-A portfolio of machine-learning projects originally completed for
-**CSCI 450 (Machine Learning)** at Lake Forest College, then audited,
-refactored, and significantly extended after the course. The work
-spans clinical prediction, particle-physics image classification,
+A portfolio of machine-learning projects that began as Lake Forest
+College coursework — **CSCI 250 (Programming for Data Applications)**
+and **CSCI 450 (Computer Vision & Machine Learning)** — and were
+reorganized, refactored, and extended after the courses ended. The
+work spans clinical prediction, particle-physics image classification,
 classical computer vision, and deep learning.
 
 ## Project directory
 
 | Project | Techniques | Dataset | Best result |
 |---|---|---|---|
-| [`heart_failure_prediction`](projects/heart_failure_prediction/) | Logistic Regression, Random Forest, Gradient Boosting, XGBoost, RBF-SVM. Stratified 5-fold CV with SHAP and Kaplan–Meier analysis. | UCI / Kaggle Heart Failure Clinical Records (299 rows × 13 cols, in-repo) | **Random Forest, ROC-AUC = 0.907 ± 0.017** |
+| [`heart_failure_prediction`](projects/heart_failure_prediction/) | Logistic Regression, Random Forest, Gradient Boosting, XGBoost, RBF-SVM. Stratified 5-fold CV with SHAP; optional Kaplan–Meier survival curve (requires `lifelines`). | UCI / Kaggle Heart Failure Clinical Records (299 rows × 13 cols, in-repo) | **Random Forest, ROC-AUC = 0.907 ± 0.017** |
 | [`lhc_collision_classification`](projects/lhc_collision_classification/) | HOG features + RF / SVM / XGBoost (Project 1) and ResNet50V2 / MobileNetV2 / custom CNN (Project 2). | Kaggle "Proton Collision 13 TeV" simulated detector images, 3 classes (~30 k images, external download) | **MobileNetV2 (transfer learning), ~0.74 test accuracy** in the original Project 2 |
 
 ## Assignments
@@ -23,9 +24,9 @@ classical computer vision, and deep learning.
 | [`hw4_hog_features_and_svm_classifier.ipynb`](assignments/hw4_hog_features_and_svm_classifier.ipynb) | Caltech 101 statistics + HOG / one-vs-rest SVM airplane classifier |
 | [`midterm_green_rectangle_detection.ipynb`](assignments/midterm_green_rectangle_detection.ipynb) | Bounding-box detection of a coloured region |
 
-Each assignment notebook now opens with a topic / setup header and
-closes with a *“What I'd do differently now”* reflection cell. The
-class submissions themselves are otherwise untouched.
+Each assignment notebook opens with a short header describing the
+topic and how to obtain its dataset. The class submissions themselves
+are otherwise untouched.
 
 ## Repository layout
 
@@ -81,7 +82,7 @@ their download sources.
 # Heart failure: CV benchmark + metrics CSV
 python -m projects.heart_failure_prediction.src.train
 
-# Heart failure: full notebook with EDA + SHAP + Kaplan-Meier
+# Heart failure: notebook with EDA + SHAP (Kaplan-Meier cell runs only if lifelines is installed)
 jupyter notebook projects/heart_failure_prediction/notebooks/exploration.ipynb
 
 # LHC collisions: pipeline walk-through on a synthetic mini-dataset (no external data needed)
@@ -94,6 +95,19 @@ python -m projects.lhc_collision_classification.src.train \
     --image-size 256 \
     --with-pca
 ```
+
+## Origins and attribution
+
+* `projects/heart_failure_prediction/` began as **CSCI 250 Project 2, a
+  pair project by Malek Elaghel and Raneem**. The original notebook is
+  preserved unmodified as `notebooks/00_original_coursework.ipynb`. The
+  `src/` package, the cross-validated benchmark, and the SHAP analysis
+  were added after the course.
+* `projects/lhc_collision_classification/` and `assignments/` began as
+  my individual CSCI 450 submissions (Fall 2023); the originals are
+  preserved unmodified alongside the rebuilt code.
+* Datasets belong to their cited sources (Chicco & Jurman 2020 via
+  UCI/Kaggle; CERN Open Data via Kaggle; Oxford 102 Flowers; Caltech 101).
 
 ## What changed vs. the original course submissions
 
@@ -124,8 +138,8 @@ so the rebuilt versions can be compared side-by-side.
 ## Stack
 
 Python 3.10+ • NumPy • pandas • scikit-learn • XGBoost •
-SHAP • lifelines • imbalanced-learn • scikit-image • matplotlib •
-seaborn • TensorFlow / Keras (LHC deep learning notebook only)
+SHAP • scikit-image • matplotlib • seaborn • lifelines (optional) •
+TensorFlow / Keras (LHC deep learning notebook only)
 
 ## License
 

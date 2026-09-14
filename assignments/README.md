@@ -1,9 +1,8 @@
 # CSCI 450 — Assignment Notebooks
 
-Cleaned and re-titled versions of the original CSCI 450 (Machine
-Learning) coursework. Each notebook now opens with a header cell
-explaining what techniques it covers and how to obtain its dataset,
-and closes with a *“What I'd do differently now”* reflection cell.
+Cleaned and re-titled versions of the original CSCI 450 (Computer
+Vision & Machine Learning) coursework. Each notebook opens with a header
+cell explaining what techniques it covers and how to obtain its dataset.
 
 | File | Topics | External data needed |
 |---|---|---|
@@ -22,6 +21,4 @@ ship a meaningful end-to-end pipeline. The assignments here, by
 contrast, are short standalone exercises — turning them into modules
 would be busywork that doesn't increase the value of the repository
 as a portfolio piece. Instead, each notebook keeps its original
-solution intact (so you can see the actual class submission) but
-gains a markdown reflection at the end calling out the things I'd
-fix today.
+solution intact, so the actual class submission is visible.

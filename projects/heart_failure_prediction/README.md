@@ -4,6 +4,11 @@ Cross-validated mortality prediction on the [Heart Failure Clinical
 Records](https://www.kaggle.com/datasets/andrewmvd/heart-failure-clinical-data)
 dataset (Chicco & Jurman, 2020).
 
+**Origin.** This project began as CSCI 250 Project 2, a pair project by
+Malek Elaghel and Raneem (preserved unmodified as
+`notebooks/00_original_coursework.ipynb`). The package, cross-validated
+benchmark, and interpretation work below were added after the course.
+
 ## Problem
 
 Given 12 baseline clinical and demographic features (age, ejection
@@ -34,8 +39,10 @@ whether the patient will die during the follow-up period (`DEATH_EVENT`).
    precision, F1, precision, recall, accuracy
    ([`src/evaluation.py`](src/evaluation.py)).
 4. **Interpretation** — Feature importances + SHAP summary and waterfall
-   plots, plus a Kaplan-Meier survival curve
-   ([`notebooks/exploration.ipynb`](notebooks/exploration.ipynb)).
+   plots ([`notebooks/exploration.ipynb`](notebooks/exploration.ipynb)).
+   The notebook also contains an optional Kaplan-Meier survival-curve cell
+   that runs only when `lifelines` is installed; it is not executed in the
+   committed notebook.
 
 ## Results (5-fold cross-validation)
 
@@ -61,7 +68,7 @@ pip install -r requirements.txt
 # CLI: prints the metrics table and writes results/cv_metrics.csv
 python -m projects.heart_failure_prediction.src.train
 
-# Notebook: full EDA + plots + SHAP + Kaplan-Meier
+# Notebook: EDA + plots + SHAP (Kaplan-Meier cell needs lifelines)
 jupyter notebook projects/heart_failure_prediction/notebooks/exploration.ipynb
 ```
 

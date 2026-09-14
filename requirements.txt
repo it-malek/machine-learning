@@ -8,14 +8,14 @@ seaborn>=0.12
 # ML
 scikit-learn>=1.3
 xgboost>=2.0
-imbalanced-learn>=0.11
 
 # Image processing
 scikit-image>=0.21
 
-# Interpretation & survival analysis
+# Interpretation
 shap>=0.43
-lifelines>=0.27.7
+# Optional - only for the Kaplan-Meier cell in the heart-failure notebook
+# lifelines>=0.27.7
 
 # Deep learning (optional - only needed for the LHC CNN notebook)
 # tensorflow>=2.13
