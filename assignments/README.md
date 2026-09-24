@@ -14,11 +14,9 @@ cell explaining what techniques it covers and how to obtain its dataset.
 
 ## Why these are kept as notebooks (not refactored into `src/`)
 
-The two main projects (`projects/heart_failure_prediction/` and
-`projects/lhc_collision_classification/`) have been refactored into
-proper Python packages with cross-validated benchmarks because they
-ship a meaningful end-to-end pipeline. The assignments here, by
-contrast, are short standalone exercises — turning them into modules
+The heart-failure project remains in `projects/heart_failure_prediction/`;
+the collider project moved to [collider-ml](https://github.com/it-malek/collider-ml).
+The assignments here are short standalone exercises — turning them into modules
 would be busywork that doesn't increase the value of the repository
 as a portfolio piece. Instead, each notebook keeps its original
 solution intact, so the actual class submission is visible.

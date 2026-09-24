@@ -5,14 +5,18 @@ College coursework — **CSCI 250 (Programming for Data Applications)**
 and **CSCI 450 (Computer Vision & Machine Learning)** — and were
 reorganized, refactored, and extended after the courses ended. The
 work spans clinical prediction, particle-physics image classification,
-classical computer vision, and deep learning.
+classical computer vision, and deep learning. This repository remains the umbrella
+for coursework and smaller projects. The collider project now lives in its dedicated
+repository, [collider-ml](https://github.com/it-malek/collider-ml), with its historical
+notebooks, corrected record and completed modern extension. Earlier versions remain
+in this repository's Git history.
 
 ## Project directory
 
 | Project | Techniques | Dataset | Best result |
 |---|---|---|---|
 | [`heart_failure_prediction`](projects/heart_failure_prediction/) | Logistic Regression, Random Forest, Gradient Boosting, XGBoost, RBF-SVM. Stratified 5-fold CV with SHAP; optional Kaplan–Meier survival curve (requires `lifelines`). | UCI / Kaggle Heart Failure Clinical Records (299 rows × 13 cols, in-repo) | **Random Forest, ROC-AUC = 0.907 ± 0.017** |
-| [`lhc_collision_classification`](projects/lhc_collision_classification/) | HOG features + RF / SVM / XGBoost (Project 1) and ResNet50V2 / MobileNetV2 / custom CNN (Project 2). | Kaggle "Proton Collision 13 TeV" simulated detector images, 3 classes (~30 k images, external download) | **MobileNetV2 (transfer learning), ~0.74 test accuracy** in the original Project 2 |
+| [collider-ml](https://github.com/it-malek/collider-ml) — dedicated repository | Historical image classification, reproducibility auditing and physics-native jet classification. | Historical screenshots and ATLAS simulated jets; different classification tasks. | See the dedicated repository for the corrected results and unweighted-only Test limitations. |
 
 ## Assignments
 
@@ -31,7 +35,7 @@ are otherwise untouched.
 ## Repository layout
 
 ```
-MachineLearning/
+machine-learning/
 ├── README.md
 ├── requirements.txt
 ├── .gitignore
@@ -40,21 +44,13 @@ MachineLearning/
 ├── assignments/                       ← cleaned coursework notebooks (HW1-4 + midterm)
 │
 ├── projects/
-│   ├── heart_failure_prediction/      ← clinical ML, end-to-end
-│   │   ├── README.md
-│   │   ├── data/heart_failure.csv
-│   │   ├── notebooks/
-│   │   │   ├── exploration.ipynb
-│   │   │   └── 00_original_coursework.ipynb
-│   │   ├── results/cv_metrics.csv
-│   │   └── src/{data_loader,preprocessing,models,evaluation,train}.py
-│   │
-│   └── lhc_collision_classification/  ← particle-physics image classification
+│   └── heart_failure_prediction/      ← clinical ML, end-to-end
 │       ├── README.md
+│       ├── data/heart_failure.csv
 │       ├── notebooks/
 │       │   ├── exploration.ipynb
-│       │   ├── 01_classical_ml_baseline.ipynb
-│       │   └── 02_deep_learning_models.ipynb
+│       │   └── 00_original_coursework.ipynb
+│       ├── results/cv_metrics.csv
 │       └── src/{data_loader,preprocessing,models,evaluation,train}.py
 │
 ├── utils/                             ← shared metric and plotting helpers
@@ -67,14 +63,14 @@ MachineLearning/
 ## Setup
 
 ```bash
-git clone https://github.com/it-malek/MachineLearning.git
-cd MachineLearning
+git clone https://github.com/it-malek/machine-learning.git
+cd machine-learning
 pip install -r requirements.txt
 ```
 
-The heart-failure data ships with the repo. The LHC and assignment
-image datasets are too large to bundle; per-project READMEs link to
-their download sources.
+The heart-failure data ships with the repo. Assignment image datasets are
+external; the assignment guide links to their sources. Collider data provenance
+and reproducibility boundaries are documented in the dedicated repository.
 
 ## Running each project
 
@@ -85,15 +81,6 @@ python -m projects.heart_failure_prediction.src.train
 # Heart failure: notebook with EDA + SHAP (Kaplan-Meier cell runs only if lifelines is installed)
 jupyter notebook projects/heart_failure_prediction/notebooks/exploration.ipynb
 
-# LHC collisions: pipeline walk-through on a synthetic mini-dataset (no external data needed)
-jupyter notebook projects/lhc_collision_classification/notebooks/exploration.ipynb
-
-# LHC collisions: real-data CLI (requires the Kaggle dataset)
-python -m projects.lhc_collision_classification.src.train \
-    --train-dir ~/data/proton/Train \
-    --test-dir  ~/data/proton/Test \
-    --image-size 256 \
-    --with-pca
 ```
 
 ## Origins and attribution
@@ -103,11 +90,12 @@ python -m projects.lhc_collision_classification.src.train \
   preserved unmodified as `notebooks/00_original_coursework.ipynb`. The
   `src/` package, the cross-validated benchmark, and the SHAP analysis
   were added after the course.
-* `projects/lhc_collision_classification/` and `assignments/` began as
-  my individual CSCI 450 submissions (Fall 2023); the originals are
-  preserved unmodified alongside the rebuilt code.
+* `assignments/` and the original collider notebooks began as my individual
+  CSCI 450 submissions (Fall 2023). The collider artifacts and their chronology
+  are now documented in [collider-ml](https://github.com/it-malek/collider-ml).
 * Datasets belong to their cited sources (Chicco & Jurman 2020 via
-  UCI/Kaggle; CERN Open Data via Kaggle; Oxford 102 Flowers; Caltech 101).
+  UCI/Kaggle; Oxford 102 Flowers; Caltech 101). Collider dataset attribution is
+  documented separately in the dedicated repository.
 
 ## What changed vs. the original course submissions
 
@@ -115,7 +103,7 @@ The original notebooks were monolithic class deliverables: a single
 `.ipynb` per assignment, no shared utilities, single 80/20 splits, no
 hyperparameter tuning, and no AUC reporting. The portfolio version:
 
-* Splits the two main projects into proper Python packages
+* Organizes the heart-failure project into a Python package
   (`data_loader`, `preprocessing`, `models`, `evaluation`, `train`).
 * Wraps every model in an sklearn `Pipeline` so the scaler is re-fit
   per CV fold — fixing the data-leakage pattern that was implicit
@@ -125,21 +113,19 @@ hyperparameter tuning, and no AUC reporting. The portfolio version:
 * Adds AUC, calibration curves, threshold sweeps, SHAP values, and
   feature importance plots that the originals didn't have.
 * Adds XGBoost and Gradient Boosting comparisons everywhere.
-* Provides a CLI entry point per project so results can be
+* Provides a CLI entry point for the heart-failure project so results can be
   reproduced without opening Jupyter.
 * Includes per-project READMEs with the metric tables and a root
   README (this file) tying the work together.
 
-The original course notebooks are preserved unmodified inside their
-project folders (`00_original_coursework.ipynb`,
-`01_classical_ml_baseline.ipynb`, `02_deep_learning_models.ipynb`)
-so the rebuilt versions can be compared side-by-side.
+The original heart-failure notebook remains in its project folder as
+`00_original_coursework.ipynb`. Original collider notebooks are preserved in
+the dedicated repository and in this repository's prior history.
 
 ## Stack
 
 Python 3.10+ • NumPy • pandas • scikit-learn • XGBoost •
-SHAP • scikit-image • matplotlib • seaborn • lifelines (optional) •
-TensorFlow / Keras (LHC deep learning notebook only)
+SHAP • scikit-image • matplotlib • seaborn • lifelines (optional)
 
 ## License
 

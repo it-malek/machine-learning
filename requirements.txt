@@ -17,9 +17,6 @@ shap>=0.43
 # Optional - only for the Kaplan-Meier cell in the heart-failure notebook
 # lifelines>=0.27.7
 
-# Deep learning (optional - only needed for the LHC CNN notebook)
-# tensorflow>=2.13
-
 # Notebook tooling
 jupyter>=1.0
 ipykernel>=6.0
