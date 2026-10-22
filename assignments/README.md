@@ -1,0 +1,36 @@
+# CSCI 450 assignment notebooks
+
+Presentation editions of the CSCI 450 (Computer Vision & Machine Learning)
+coursework. Introductory prose and comments have been edited; computations
+and saved outputs are unchanged. Each notebook explains its techniques
+and required datasets.
+
+| File | Topics | External data needed |
+|---|---|---|
+| `hw1_image_filters_and_retrieval.ipynb` | Roberts edge detection, image rescaling, color-histogram retrieval (RGB/HSV × Euclidean/Manhattan) | [Oxford 102 Flowers](https://www.robots.ox.ac.uk/~vgg/data/flowers/102/) under `./jpg/` |
+| `hw2_smoothing_and_tiny_image_retrieval.ipynb` | Difference-of-Gaussians, median filter, "tiny image" (16×16) retrieval | Oxford 102 Flowers + the `SP.jpg` noisy image distributed with the assignment |
+| `hw3_image_box_drawing.ipynb` | Generate `n` random axis-aligned boxes; manually draw rectangles via NumPy slicing | A local `testpic.jpeg` (or substitute `skimage.data.astronaut()`) |
+| `hw4_hog_features_and_svm_classifier.ipynb` | HOG features, per-class average images, one-vs-rest SVM for the `airplanes` class | [Caltech 101](https://data.caltech.edu/records/mzrjq-6wc02) at `./101_ObjectCategories/` |
+| `midterm_green_rectangle_detection.ipynb` | NumPy boolean masking to find a coloured region's bounding box | A local `test.jpg` (pre-baked outputs in the cells show the expected answer) |
+
+## Why these are kept as notebooks (not refactored into `src/`)
+
+The heart-failure project remains in `projects/heart_failure_prediction/`;
+the collider project moved to [collider-ml](https://github.com/it-malek/collider-ml).
+These are short standalone exercises. Their solutions and saved outputs remain
+in the notebooks for inspection.
+
+
+## Environment
+
+From the repository root, use the image and notebook dependency groups:
+
+```sh
+uv sync --locked --python 3.11 --group images --group notebooks
+uv run --locked --group images --group notebooks jupyter notebook assignments
+```
+
+These groups support Python 3.11–3.13. Opening a notebook does not execute it;
+provide the listed external files before running its cells. The root
+`pyproject.toml` and `uv.lock` own this environment. Historical source and saved
+outputs are retained without a claim that every exercise has been rerun.

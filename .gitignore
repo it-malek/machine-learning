@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors / IDEs
+.vscode/
+.idea/
+
+# ML / data artefacts
+*.h5
+*.keras
+*.pkl
+*.joblib
+wandb/
+mlruns/
+
+# Generated outputs (kept for the heart failure project; ignore everywhere else)
+*.log

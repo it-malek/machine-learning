@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12", "3.13"]
+    env:
+      MPLBACKEND: Agg
+      MPL_IGNORE_SYSTEM_FONTS: "1"
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: astral-sh/setup-uv@94527f2e458b27549849d47d273a16bec83a01e9 # v7
+        with:
+          version: "0.11.21"
+          python-version: ${{ matrix.python }}
+          enable-cache: true
+      - name: Install compatible dependency groups
+        run: uv sync --locked --all-groups
+      - name: Check notebook structure and saved artifacts
+        run: uv run --locked --no-sync python -m unittest discover -s tests -v
+      - name: Check classifier, image and notebook imports
+        run: uv run --locked --no-sync python scripts/check_imports.py classifiers images notebooks
+      - name: Check the isolated plot path
+        run: |
+          uv run --locked --no-sync python scripts/check_imports.py visualization
+          uv run --locked --no-sync python -m unittest discover -s projects/heart_failure_prediction/scripts -p 'test_kaplan_meier.py' -v
